@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        #Signupform {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        fieldset {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        legend {
+            text-align:center;
+            font-family: Verdana;
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #1e90ff;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #1e90ff;
+        }
+
+        button {
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button#reset {
+            background-color: #ff6347;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        #response {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        #response h2 {
+            color: #1e90ff;
+        }
+    </style>
+</head>
+<body>
+    <form id="Signupform" onsubmit="return printUserInfo()">
+        <fieldset>
+            <legend>Sign Up</legend>
+            <label for="pangalan">Name</label>
+            <input type="text" name="Name" id="pangalan" onblur="isThereText(this)" onfocus="unblur(this)" required>
+            
+            <label for="gumagamit">Username</label>
+            <input type="text" name="Username" id="gumagamit" onblur="isThereText(this)" onfocus="unblur(this)" required>
+
+            <label for="kasarian">Gender</label>
+            <select id="kasarian" name="Gender" onblur="isThereText(this)" onfocus="unblur(this)" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Prefer Not To Mention</option>
+            </select>
+            
+            <label for="secret">Password</label>
+            <input type="password" name="Password" id="secret" onblur="isThereText(this)" onfocus="unblur(this)" required>
+
+            <label for="mail">Email</label>
+            <input type="email" name="Email" id="mail" onblur="isThereText(this)" onfocus="unblur(this)" required>
+            
+            <label for="bahayko">Address</label>
+            <textarea name="Address" id="bahayko" onblur="isThereText(this)" onfocus="unblur(this)" required></textarea>
+            
+            <label for="interest">User's Interest</label>
+            <textarea name="User's Interest" id="interest" onblur="isThereText(this)" onfocus="unblur(this)" required></textarea>
+        </fieldset>
+        <button id="submit" type="submit">Submit</button>
+        <button id="reset" type="reset">Clear The Page</button>
+    </form>
+    
+    <div id="response"></div>
+
+    <script>
+        function isThereText(blur) {
+            if (blur.value === "") {
+                blur.style.borderColor = "red";
+            } else {
+                blur.style.borderColor = "green";
+            }
+        }
+
+        function unblur(blur) {
+            blur.style.borderColor = "black";
+        }
+
+        function printUserInfo() {
+            const response = document.getElementById("response");
+            const signupQuestions = new FormData(document.getElementById("Signupform"));
+            let userInput = "<h2>User Information</h2>";
+
+            signupQuestions.forEach((value, key) => {
+                userInput += `<p><b>${key}:</b> ${value}</p>`;
+            });
+            response.innerHTML = userInput;
+
+            return false;
+        }
+    </script>
+</body>
+</html>
